@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b0d75c13de5604dafeb4b1241bd04e, type: 3}
+  m_Name: Player Data
+  m_EditorClassIdentifier: 
+  L_will_jump: 0
+  horizontal: 0
+  enable: 1
+  l_will_jump: 0
+  frozen: 0
+  maxSpeed: 3
+  JumpGravity: 10
+  FallGravity: 5
+  maxFallSpeed: 100
+  jumpPower: 33
+  jumpPower_duble: 27
+  isGround: 1
+  dobleJump: 1
+  water_status: 0
+  game_over_msg: {fileID: 1764520181683984, guid: 644785d96934cc846ac43d9ab8393fee, type: 3}
+  blood: {fileID: 1151118329933536, guid: feafe7a68eaaebe4e88e8bb4a9565b1f, type: 3}
+  smoke_effect: {fileID: 1863957464961892, guid: 0319c25d609c70240b14f1161a2a5960, type: 3}
+  smoke: 0
+  GroundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  left_x: 0
+  down_y: 0
+  right_x: 0
+  up_y: 0
