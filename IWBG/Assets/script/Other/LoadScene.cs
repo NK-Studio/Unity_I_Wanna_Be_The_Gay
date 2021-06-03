@@ -2,7 +2,7 @@ using GameplayIngredients;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
-using System;
+using UnityEngine.SceneManagement;
 
 public class LoadScene : MonoBehaviour
 {
@@ -17,7 +17,16 @@ public class LoadScene : MonoBehaviour
     private int Index = 0;
 
     private void Awake()
-        => Manager.Get<GameManager>().uip.System.SlideMove.performed += SlideMove_performed;
+    {
+        Manager.Get<GameManager>().uip.System.SlideMove.performed += SlideMove_performed;
+        Manager.Get<GameManager>().uip.player.Jump.performed += Next;
+    }
+
+    private void Next(InputAction.CallbackContext obj)
+    {
+        Manager.Get<GameManager>().CurrentGameIndex = Index;
+        SceneManager.LoadScene("beginning");
+    }
 
     private void SlideMove_performed(InputAction.CallbackContext obj)
     {
