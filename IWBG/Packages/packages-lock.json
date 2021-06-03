@@ -51,15 +51,6 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.gameplay-ingredient-simple": {
-      "version": "https://github.com/bnm000215/net.peeweek.gameplay-ingredients.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.unity.timeline": "1.2.14"
-      },
-      "hash": "17ac870979b54849be9ac0c9bf99b9e189858e9a"
-    },
     "com.unity.ide.rider": {
       "version": "3.0.7",
       "depth": 0,

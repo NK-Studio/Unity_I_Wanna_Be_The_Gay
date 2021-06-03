@@ -24,7 +24,7 @@ public class player : MonoBehaviour
     public BulletPool BulletPool;
 
     public float downdfsfdsfsd = 1;
-    
+
     //애니메이터 태그
     private static readonly int ID_Ground = Animator.StringToHash("isGround");
     private static readonly int Y_velocity = Animator.StringToHash("Y_velocity");
@@ -62,7 +62,7 @@ public class player : MonoBehaviour
         if (PlayerData.frozen == 0)
         {
             var Velocity = rig.velocity;
-            if (!PlayerData.water_status)
+            if (!PlayerData.WaterStatus)
             {
                 if (PlayerData.isGround)
                 {
@@ -71,11 +71,11 @@ public class player : MonoBehaviour
                 }
                 else
                 {
-                    if (PlayerData.dobleJump)
+                    if (PlayerData.DobleJump)
                     {
                         // GetComponent<AudioSource>().PlayOneShot(world.instance.audio_effect[12]);
                         Velocity = new Vector2(Velocity.x, PlayerData.jumpPower_duble);
-                        PlayerData.dobleJump = false;
+                        PlayerData.DobleJump = false;
                     }
                 }
             }
@@ -83,7 +83,7 @@ public class player : MonoBehaviour
             {
                 // GetComponent<AudioSource>().PlayOneShot(world.instance.audio_effect[12]);
                 Velocity = new Vector2(Velocity.x, PlayerData.jumpPower_duble);
-                PlayerData.dobleJump = false;
+                PlayerData.DobleJump = false;
             }
 
             rig.velocity = Velocity;
@@ -103,7 +103,7 @@ public class player : MonoBehaviour
 
         //중력을 다르게 처리
         updateGravitiyScale();
-        
+
         if (PlayerData.enable)
         {
             // if (smoke == 1)
@@ -122,7 +122,7 @@ public class player : MonoBehaviour
                         transform.GetChild(0).localScale = new Vector2(PlayerData.horizontal, 1); //GFX objetct to Flip
                 }
             }
-            
+
             if (PlayerData.frozen == 0)
             {
                 //떨어지는 가속도를 일정하게 만듬
@@ -137,10 +137,10 @@ public class player : MonoBehaviour
         if (PlayerData.enable)
         {
             //Frozen이 0보다 이상일때 0으로 만들기위해 줄임
-            if (PlayerData.frozen > 0) 
+            if (PlayerData.frozen > 0)
                 PlayerData.frozen -= 1;
 
-            if (PlayerData.frozen == 0) 
+            if (PlayerData.frozen == 0)
                 UpdateMove();
         }
     }
@@ -148,9 +148,9 @@ public class player : MonoBehaviour
     private void UpdateMove()
     {
         rig.velocity = new Vector2(PlayerData.horizontal * 5.5f, rig.velocity.y);
-        anim.SetInteger(Move, (int) Math.Abs(PlayerData.horizontal));
+        anim.SetInteger(Move, (int)Math.Abs(PlayerData.horizontal));
     }
-    
+
     private void updateGroundCheck()
     {
         //플레이어의 콜라이더에서 CenterBottom의 위치를 담습니다.
@@ -162,8 +162,8 @@ public class player : MonoBehaviour
         //땅 체크
         PlayerData.isGround = Physics2D.OverlapCircle(Point, 0.025f, PlayerData.GroundMask);
 
-        if (PlayerData.isGround) PlayerData.dobleJump = true;
-        
+        if (PlayerData.isGround) PlayerData.DobleJump = true;
+
         //땅 충돌을 실시간으로 애니메이터에 넘긴다.
         anim.SetBool(ID_Ground, PlayerData.isGround);
     }

@@ -3,21 +3,21 @@
     "player_X": 0.0,
     "player_Y": 0.0,
     "player_Flip": 0.0,
-    "Difficulty": 0,
+    "Difficulty": 1,
     "DeathCount": 0
   },
   {
     "player_X": 0.0,
     "player_Y": 0.0,
     "player_Flip": 0.0,
-    "Difficulty": 0,
+    "Difficulty": 4,
     "DeathCount": 0
   },
   {
     "player_X": 0.0,
     "player_Y": 0.0,
     "player_Flip": 0.0,
-    "Difficulty": 0,
+    "Difficulty": 2,
     "DeathCount": 0
   }
 ]

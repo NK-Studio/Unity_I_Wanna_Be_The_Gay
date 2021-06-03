@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class obj_trigger_field_sq : MonoBehaviour {
+public class obj_trigger_field_sq : MonoBehaviour
+{
 
     public bool Active = false;
     public SpriteRenderer spr;

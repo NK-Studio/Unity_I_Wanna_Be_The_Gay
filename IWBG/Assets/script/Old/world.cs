@@ -1,23 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public enum diffent
-{
-    NONE,
-    ESAY,
-    MEDIUM,
-    HARD,
-    VERYHARD
-}
 
 public class world : MonoBehaviour
 {
-    [HideInInspector]
-    public diffent dificult = diffent.NONE;
-
     public bool bgm_onoff;
     public bool eff_onoff;
 
@@ -30,12 +15,6 @@ public class world : MonoBehaviour
     public AudioSource Game_bgm, Game_effect, Kill_bgm;
 
     public GameObject restart;
-
-    public void new_music(string room)
-    {
-        //   Game_bgm.clip = audio_bgm[4];
-        //  Game_bgm.Play();
-    }
 
     private void Awake()
     {
@@ -54,8 +33,6 @@ public class world : MonoBehaviour
     void Start()
     {
         Screen.SetResolution(800, 608, false);
-
-        SceneManager.LoadScene("tuto");
     }
 
     public void kill_player(GameObject player)
@@ -72,37 +49,30 @@ public class world : MonoBehaviour
             }
         }
 
-        player.GetComponent<player>().PlayerData.blood.SetActive(true);
+        //player.GetComponent<player>().PlayerData.blood.SetActive(true);
 
         if (GameObject.Find("game_end_message(Clone)") == null)
         {
-            //    GameObject temp = Instantiate(player.GetComponent<player>().game_over_msg);
-
-            //    player.SetActive(false);
 
             Vector2 pl_position = GameObject.Find("RCamera").GetComponent<obj_camera>().result_xy;
 
-//            Vector2 temp_xy = temp.gameObject.transform.position;
-//            temp_xy.x = pl_position.x;
-//            temp_xy.y = pl_position.y;
-//            temp.transform.position = temp_xy;
+            //            Vector2 temp_xy = temp.gameObject.transform.position;
+            //            temp_xy.x = pl_position.x;
+            //            temp_xy.y = pl_position.y;
+            //            temp.transform.position = temp_xy;
         }
-//        Game_bgm.Pause();
-//        Kill_bgm.clip = audio_bgm[1];
-//        Kill_bgm.Play();
-//        Kill_bgm.loop = false;
+        //        Game_bgm.Pause();
+        //        Kill_bgm.clip = audio_bgm[1];
+        //        Kill_bgm.Play();
+        //        Kill_bgm.loop = false;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F4))
-        {
-            Screen.fullScreen = !Screen.fullScreen;
-        }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (!(Application.loadedLevel >= 0 && Application.loadedLevel <= 6))
+            if (!(SceneManager.GetActiveScene().buildIndex >= 0 && SceneManager.GetActiveScene().buildIndex <= 6))
             {
                 Kill_bgm.Stop();
                 Instantiate(restart);

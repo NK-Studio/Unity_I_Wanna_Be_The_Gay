@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class load_image : MonoBehaviour {
+public class load_image : MonoBehaviour
+{
 
     private void Start()
     {
@@ -18,7 +19,8 @@ public class load_image : MonoBehaviour {
         }
 
     }
-    void Update () {
+    void Update()
+    {
         if (name != "load_image_ui")
         {
             Vector2 sc = gameObject.transform.localScale;
@@ -33,9 +35,5 @@ public class load_image : MonoBehaviour {
             sc.y += 0.18f;
             gameObject.GetComponent<RectTransform>().localScale = sc;
         }
-    }
-    private void next()
-    {
-        gameObject.GetComponent<room_goto_scr>().room_goto_next();
     }
 }

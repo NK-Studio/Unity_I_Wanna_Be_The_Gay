@@ -1,4 +1,4 @@
-using GameplayIngredients;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
@@ -18,46 +18,58 @@ public class LoadScene : MonoBehaviour
 
     private void Awake()
     {
-        Manager.Get<GameManager>().uip.System.SlideMove.performed += SlideMove_performed;
-        Manager.Get<GameManager>().uip.player.Jump.performed += Next;
+        GameManager.GetInstance.uip.System.SlideMove.performed += SlideMove_performed;
+        GameManager.GetInstance.uip.player.Jump.performed += Next;
     }
 
     private void Next(InputAction.CallbackContext obj)
     {
-        Manager.Get<GameManager>().CurrentGameIndex = Index;
+        GameManager.CurrentGameIndex = Index;
         SceneManager.LoadScene("beginning");
     }
 
     private void SlideMove_performed(InputAction.CallbackContext obj)
     {
-        //¿ÞÂÊ/¿À¸¥ÂÊ ´©¸¥ °ÍÀ» °¡Á®¿È
+        //ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         var Horizontal = (int)obj.ReadValue<float>();
         var tempInt = Index;
 
-        //-1 / 1À» ´õÇØ¼­ ¿ÞÂÊ/¿À¸¥ÂÊ ÀÌµ¿À» Ã³¸®ÇÔ
+        //-1 / 1ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½
         tempInt += Horizontal;
 
-        //0~2»çÀÌ·Î ÀÚ¸§
+        //0~2ï¿½ï¿½ï¿½Ì·ï¿½ ï¿½Ú¸ï¿½
         tempInt = Mathf.Clamp(tempInt, 0, 2);
 
-        //ÀÌ¹ÌÁö ´ëÀÀ
+        //ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         LoadButtonImage(tempInt);
 
-        //½ÇÁ¦ °ª¿¡ Ã³¸®
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
         Index = tempInt;
     }
 
     private void Start()
     {
-        var KeyboardJumpValue = Manager.Get<GameManager>().uip.player.Jump.GetBindingDisplayString(0);
-        var KeyboardSuicideValue = Manager.Get<GameManager>().uip.player.SelfKill.GetBindingDisplayString(0);
+        var KeyboardJumpValue = GameManager.GetInstance.uip.player.Jump.GetBindingDisplayString(0);
+        var KeyboardSuicideValue = GameManager.GetInstance.uip.player.SelfKill.GetBindingDisplayString(0);
 
         DiscText.text = $"Press {KeyboardJumpValue} to Load, {KeyboardSuicideValue} to Delete File";
         InputSystem.onDeviceChange += InputSystem_onDeviceChange;
 
-        //ÃÊ±âÈ­
+        //ï¿½Ê±ï¿½È­
         LoadButtonImage(0);
         InitInfoText();
+    }
+
+    private void OnEnable()
+    {
+        GameManager.GetInstance.uip.System.SlideMove.Enable();
+        GameManager.GetInstance.uip.player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        GameManager.GetInstance.uip.System.SlideMove.Disable();
+        GameManager.GetInstance.uip.player.Disable();
     }
 
     private void InputSystem_onDeviceChange(InputDevice device, InputDeviceChange change)
@@ -65,14 +77,14 @@ public class LoadScene : MonoBehaviour
         switch (change)
         {
             case InputDeviceChange.Added:
-                var GamepadJumpValue = Manager.Get<GameManager>().uip.player.Jump.GetBindingDisplayString(1);
-                var GamepadSuicideValue = Manager.Get<GameManager>().uip.player.SelfKill.GetBindingDisplayString(1);
+                var GamepadJumpValue = GameManager.GetInstance.uip.player.Jump.GetBindingDisplayString(1);
+                var GamepadSuicideValue = GameManager.GetInstance.uip.player.SelfKill.GetBindingDisplayString(1);
 
                 DiscText.text = $"Press {GamepadJumpValue} to Load, {GamepadSuicideValue} to Delete File";
                 break;
             case InputDeviceChange.Removed:
-                var KeyboardJumpValue = Manager.Get<GameManager>().uip.player.Jump.GetBindingDisplayString(0);
-                var KeyboardSuicideValue = Manager.Get<GameManager>().uip.player.SelfKill.GetBindingDisplayString(0);
+                var KeyboardJumpValue = GameManager.GetInstance.uip.player.Jump.GetBindingDisplayString(0);
+                var KeyboardSuicideValue = GameManager.GetInstance.uip.player.SelfKill.GetBindingDisplayString(0);
 
                 DiscText.text = $"Press {KeyboardJumpValue} to Load, {KeyboardSuicideValue} to Delete File";
                 break;
@@ -81,18 +93,19 @@ public class LoadScene : MonoBehaviour
 
     private void LoadButtonImage(int id)
     {
-        //ÀÌÀü ¹öÆ° ÀÌ¹ÌÁö´Â µðÆúÆ® ÀÌ¹ÌÁö·Î º¯°æ
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         LoadButtonImages[Index].sprite = LoadButtonSprs[0];
 
-        //Å¸°ÙÀÇ ÀÌ¹ÌÁö ¹öÆ°À» ¼±ÅÃÇÑ ¹öÆ°À¸·Î º¯°æ
+        //Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         LoadButtonImages[id].sprite = LoadButtonSprs[1];
     }
 
     private void InitInfoText()
     {
-        foreach (var i in InfoTexts)
+        for (int i = 0; i <= 2; i++)
         {
-            i.text = string.Format("Deaths : {0}\nDifficulty : {1}", 0, "Undefined");
+            var data = GameManager.GetInstance.gameDatas[i];
+            InfoTexts[i].text = $"Deaths : {data.DeathCount}\nDifficulty : {data.Difficulty.ToString()}";
         }
     }
 }
